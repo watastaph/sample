@@ -1,0 +1,103 @@
+Name: <b>{{session["author"]}}</b><br>
+User ID: <b>{{session["user_id"]}}</b>
+
+<h1>Registration</h1>
+
+<form action="/add_user" method="POST">
+    <div>
+        <label>Author</label>
+        <input type="text" name="txt-author">
+    </div>
+    <div>
+        <label>E-Mail</label>
+        <input type="text" name="txt-email">
+    </div>
+    <div>
+        <label>Password</label>
+        <input type="password" name="txt-password">
+    </div>
+    <div>
+        <label>Confirm Password</label>
+        <input type="password" name="txt-cpassword">
+    </div>
+    <div>
+        <input type="submit" value="Register User!">
+    </div>
+</form>
+
+<table border="1">
+    <tr>
+        <th>ID</th>
+        <th>Author</th>
+        <th>E-Mail</th>
+        <th>Password</th>
+        <th>Created At</th>
+        <th>Updated At</th>
+        <th>Actions</th>
+    </tr>
+
+    {% for user in all_users %}
+    <tr>
+        <td>{{user.id}}</td>
+        <td>{{user.author}}</td>
+        <td>{{user.email}}</td>
+        <td>{{user.password}}</td>
+        <td>{{user.created_at}}</td>
+        <td>{{user.updated_at}}</td>
+        <td><a href="/delete_user/{{user.id}}">Delete</a> | <a href="/retrieve_user/{{user.id}}"><button>Update</button></a></td>
+    </tr>
+    {% endfor %}
+</table>
+
+{% with messages = get_flashed_messages() %}     <!-- declare a variable called messages -->
+    {% if messages %}                            <!-- check if there are any messages -->
+        {% for message in messages %}            <!-- loop through the messages -->
+            <p>{{message}}</p>                   <!-- display each message in a paragraph tag -->
+        {% endfor %}
+    {% endif %}
+{% endwith %}
+
+
+
+<h1>All Post</h1>
+
+<form action="/add_post" method="POST">
+    <div>
+        <label>Post</label>
+        <textarea name="txt-post"></textarea>
+    </div>
+    <div>
+        <input type="submit" value="Add Post!">
+    </div>
+</form>
+
+<table border="1">
+    <tr>
+        <th>ID</th>
+        <th>Author</th>
+        <th>Post</th>
+        <th>Date Published</th>
+        <th>Actions</th>
+    </tr>
+
+    {% for posts in all_posts %}
+    <tr>
+        <td>{{posts.post_id}}</td>
+        <td>{{posts.author}}</td>
+        <td>{{posts.posts}}</td>
+        <td>{{posts.date_published}}</td>
+        <td>
+            {% if posts.user_id == session["user_id"]: %}
+                <a href="/delete_posts/{{posts.post_id}}">Delete</a>  |
+                <a href="/retrieve_posts/{{posts.post_id}}">Update</a> |
+                <a href="/view_posts/{{posts.post_id}}">View Post</a> 
+
+            {% else: %}
+                <a href="/view_posts/{{posts.post_id}}">View Post</a> 
+            {% endif %}
+            
+        
+        </td>
+    </tr>
+    {% endfor %}
+</table>

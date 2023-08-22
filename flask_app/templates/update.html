@@ -1,0 +1,24 @@
+<h1>Update User Details</h1>
+
+<form action="/update_user" method="POST">
+    <div>
+        <label>Author</label>
+        <input type="text" name="txt-author" value="{{all_user.author}}">
+    </div>
+    <div>
+        <label>E-Mail</label>
+        <input type="text" name="txt-email" value="{{all_user.email}}">
+    </div>
+    <div>
+        <label>Password</label>
+        <input type="password" name="txt-password" value="{{all_user.password}}">
+    </div>
+    <div>
+        <input type="hidden" name="txt-id" value="{{all_user.id}}">
+    </div>
+    <div>
+        <input type="submit" value="Update User!">
+    </div>
+</form>
+
+<a href="/register">Return to registration page!</a>

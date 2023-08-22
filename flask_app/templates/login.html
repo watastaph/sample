@@ -1,0 +1,22 @@
+<h1>Login Page</h1>
+<form action="/login_user" method="POST">
+    <div>
+        <label>E-Mail</label>
+        <input type="text" name="txt-email">
+    </div>
+    <div>
+        <label>Password</label>
+        <input type="password" name="txt-password">
+    </div>
+    <div>
+        <input type="submit" value="Login User!">
+    </div>
+</form>
+
+{% with messages = get_flashed_messages() %}     <!-- declare a variable called messages -->
+    {% if messages %}                            <!-- check if there are any messages -->
+        {% for message in messages %}            <!-- loop through the messages -->
+            <p>{{message}}</p>                   <!-- display each message in a paragraph tag -->
+        {% endfor %}
+    {% endif %}
+{% endwith %}
